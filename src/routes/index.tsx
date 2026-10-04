@@ -60,7 +60,7 @@ function Landing() {
             {navItems.map((s) => (
               <a key={s.id} href={`#${s.id}`} onClick={() => setView("home")} className="hover:text-primary">{s.label}</a>
             ))}
-            <button onClick={() => setView("tournaments")} className={view === "tournaments" ? "text-primary" : "hover:text-primary"}>Tournaments</button>
+            <button onClick={() => { setView("tournaments"); window.scrollTo(0, 0); }} className={view === "tournaments" ? "text-primary" : "hover:text-primary"}>Tournaments</button>
           </nav>
           <div className="flex items-center gap-3">
             <button className="border border-border px-4 py-2 text-sm font-bold uppercase hover:border-primary">Log in</button>
