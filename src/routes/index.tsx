@@ -69,6 +69,8 @@ function Landing() {
         </div>
       </header>
 
+      {view === "home" && (
+      <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-24 md:grid-cols-2 md:py-32">
