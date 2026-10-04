@@ -156,10 +156,14 @@ function Landing() {
           </div>
         </div>
       </Section>
+      </>
+      )}
 
-      <Section id="tournaments" kicker="Fight night" title="Tournament Maker">
-        <TournamentMaker />
-      </Section>
+      {view === "tournaments" && (
+        <Section id="tournaments" kicker="Fight night" title="Tournaments">
+          <TournamentMaker />
+        </Section>
+      )}
 
       <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
         <span className="font-display text-2xl text-foreground">ROUND<span className="text-primary">2</span></span>
