@@ -183,14 +183,14 @@ function TournamentMaker() {
   }
 
   function win(r: number, i: number) {
-    const name = rounds[r][i];
+    const name = rounds[r]?.[i] ?? "TBD";
     if (r + 1 >= rounds.length || name === "TBD" || name === "BYE") return;
     const next = rounds.map((x) => [...x]);
-    next[r + 1][Math.floor(i / 2)] = name;
+    next[r + 1]![Math.floor(i / 2)] = name;
     setRounds(next);
   }
 
-  const champ = rounds.length ? rounds[rounds.length - 1][0] : "TBD";
+  const champ = rounds.length ? rounds[rounds.length - 1]?.[0] ?? "TBD" : "TBD";
 
   return (
     <div className="grid gap-8 lg:grid-cols-[280px_1fr]">
@@ -217,7 +217,7 @@ function TournamentMaker() {
                     <div key={m} className="w-40 border border-border">
                       {[0, 1].map((k) => {
                         const i = m * 2 + k;
-                        const won = rounds[r + 1][m] === round[i] && round[i] !== "TBD";
+                        const won = rounds[r + 1]?.[m] === round[i] && round[i] !== "TBD";
                         return (
                           <button key={k} onClick={() => win(r, i)} className={`block w-full px-3 py-2 text-left text-sm font-semibold ${k ? "border-t border-border" : ""} ${won ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}>
                             <span className="mr-2 text-xs opacity-60">{k ? "BLUE" : "RED"}</span>{round[i]}
