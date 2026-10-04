@@ -44,20 +44,33 @@ const coaches = [
 ];
 
 function Landing() {
+  const [view, setView] = useState<"home" | "tournaments">("home");
+  const navItems = [
+    { id: "sessions", label: "Sessions" },
+    { id: "coaches", label: "Coaches" },
+    { id: "pricing", label: "Pricing" },
+    { id: "matcam", label: "MatCam" },
+  ];
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <span className="font-display text-3xl">ROUND<span className="text-primary">2</span></span>
-          <nav className="hidden gap-6 text-sm font-semibold uppercase md:flex">
-            {["sessions", "coaches", "pricing", "matcam", "tournaments"].map((s) => (
-              <a key={s} href={`#${s}`} className="hover:text-primary">{s}</a>
+          <button onClick={() => setView("home")} className="font-display text-3xl">ROUND<span className="text-primary">2</span></button>
+          <nav className="hidden items-center gap-6 text-sm font-semibold uppercase md:flex">
+            {navItems.map((s) => (
+              <a key={s.id} href={`#${s.id}`} onClick={() => setView("home")} className="hover:text-primary">{s.label}</a>
             ))}
+            <button onClick={() => { setView("tournaments"); window.scrollTo(0, 0); }} className={view === "tournaments" ? "text-primary" : "hover:text-primary"}>Tournaments</button>
           </nav>
-          <a href="#pricing" className="bg-primary px-4 py-2 text-sm font-bold uppercase text-primary-foreground">Join</a>
+          <div className="flex items-center gap-3">
+            <button className="border border-border px-4 py-2 text-sm font-bold uppercase hover:border-primary">Log in</button>
+            <a href="#pricing" onClick={() => setView("home")} className="bg-primary px-4 py-2 text-sm font-bold uppercase text-primary-foreground">Join</a>
+          </div>
         </div>
       </header>
 
+      {view === "home" && (
+      <>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-24 md:grid-cols-2 md:py-32">
@@ -143,10 +156,14 @@ function Landing() {
           </div>
         </div>
       </Section>
+      </>
+      )}
 
-      <Section id="tournaments" kicker="Fight night" title="Tournament Maker">
-        <TournamentMaker />
-      </Section>
+      {view === "tournaments" && (
+        <Section id="tournaments" kicker="Fight night" title="Tournaments">
+          <TournamentMaker />
+        </Section>
+      )}
 
       <footer className="border-t border-border py-10 text-center text-sm text-muted-foreground">
         <span className="font-display text-2xl text-foreground">ROUND<span className="text-primary">2</span></span>
